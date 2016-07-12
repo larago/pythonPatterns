@@ -59,6 +59,33 @@ class Text:
 
 #Those are all codes of class Text(), we don't concerned with fontsize causes it's pure text
 
-class...
+class Diagram:
 
-# 2016-7-11 17:22 not finished...
+    def add(self, component):
+        for y, row in enmuerate(component.rows):
+            for x, char in enmuerate(row):
+                self.diagram[y + component.y][x + component.x]
+
+# all instants that class SvgText() reply on listed below:
+
+SVG_TEXT = """<text x="{x}" y="{y}" text-anchor="left" \
+font-family= "sans-serif" font-size="{fontsize}">{text}</text>"""
+
+SVG_SCALE = 20
+
+class SvgText:
+
+    def __init__(self, x, y, text, fontsize):
+        x *= SVG_SCALE
+        y *= SVG_SCALE
+        fontsize *= SVG_SCALE // 10
+        self.svg = SVG_TEXT.format(**locals())
+
+class SvgDiagram:
+
+    def add(self,component):
+        self.diagram.append(component.svg)
+
+#All presents above shows the modle of factory, but they are not really necessary
+#Because they have no status, so actually no need to create class
+#Besides, a lot of codes repeat, it's not that good
